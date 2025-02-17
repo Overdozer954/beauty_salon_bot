@@ -1,20 +1,36 @@
-from sqlalchemy import Table, Column, Integer, String, DateTime, MetaData
+from sqlalchemy import Column, Integer, BigInteger, String, Text, DateTime
+from database.db import Base  # Импортируем Base из db.py
 
-metadata = MetaData()
 
-procedures = Table(
-    'procedures', metadata,
-    Column('id', Integer, primary_key=True),
-    Column('name', String),
-    Column('description', String),
-    Column('duration', Integer),
-    Column('price', Integer)
-)
+class Account(Base):
+    __tablename__ = 'accounts'
 
-bookings = Table(
-    'bookings', metadata,
-    Column('id', Integer, primary_key=True),
-    Column('user_id', Integer),
-    Column('procedure_id', Integer),
-    Column('date', DateTime)
-)
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    telegram_id = Column(BigInteger, nullable=False)
+    telegram_name = Column(String)
+    first_name = Column(String)
+
+
+class Booking(Base):
+    __tablename__ = 'bookings'
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    telegram_id = Column(BigInteger, nullable=False)
+    telegram_name = Column(String)
+    first_name = Column(String)
+    appointed_date = Column(String)
+    appointed_time = Column(String)
+    procedure_zone = Column(String)
+    procedure_type = Column(String)
+    price = Column(String)
+    email = Column(String)
+    phone = Column(String)
+
+
+class Procedure(Base):
+    __tablename__ = 'procedures'
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    procedure_zone = Column(String)
+    procedure_type = Column(String)
+    price = Column(String)
